@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const App = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your login logic here
-    console.log('Logged in with:', username, password);
+    fetch(
+      "https://kgh1113-glowing-space-guide-g9wjxjxp5j9cwv6-3000.preview.app.github.dev/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userName: username,
+          password: password
+        })
+      }
+    ).then((response) => {
+      console.log(response.json());
+    });
+    console.log("Logged in with:", username, password);
   };
 
   return (
