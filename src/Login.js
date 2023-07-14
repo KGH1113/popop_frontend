@@ -1,27 +1,30 @@
 import React, { useState } from "react";
+import "./App.css"
 
-const App = () => {
-  const [username, setUsername] = useState("");
+const Login = () => {
+  const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch(
-      "https://kgh1113-glowing-space-guide-g9wjxjxp5j9cwv6-3000.preview.app.github.dev/login",
+      "http://localhost:3000/login",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userName: username,
+          userName: userName,
           password: password
         })
       }
     ).then((response) => {
-      console.log(response.json());
+      return response.json();
+    }).then((message) => {
+      console.log(message);
     });
-    console.log("Logged in with:", username, password);
+    console.log("Logged in with:", userName, password);
   };
 
   return (
@@ -33,7 +36,7 @@ const App = () => {
           <input
             type="text"
             id="username"
-            value={username}
+            value={userName}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
@@ -49,9 +52,10 @@ const App = () => {
           />
         </div>
         <button type="submit">Login</button>
+        <a href="/sign-in">Sign in</a>
       </form>
     </div>
   );
 };
 
-export default App;
+export default Login;
